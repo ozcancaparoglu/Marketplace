@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  categorydb:
+    image: postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+
+  categoryservice.api:
+    image: ${DOCKER_REGISTRY-}categoryserviceapi
+    build:
+      context: .
+      dockerfile: src/Infrastructure/CategoryService/CategoryService.Api/Dockerfile
+
+volumes:
+  postgres_data:
+  pgadmin_data:

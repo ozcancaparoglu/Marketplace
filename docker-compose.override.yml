@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  categorydb:
+    container_name: categorydb
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=6wuvirmipwpdd4qnu
+      - POSTGRES_DB=CategoryDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  
+  pgadmin:
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=ozcan.caparoglu@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=Capar.11
+    restart: always
+    ports:
+        - "5050:80"
+    volumes:
+      - pgadmin_data:/root/.pgadmin
+
+  categoryservice.api:
+    container_name: categoryservice.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:CategoryConnectionString=Server=categorydb;Port=5432;Database=CategoryDb;User Id=admin;Password=6wuvirmipwpdd4qnu"
+    depends_on:
+      - categorydb
+    ports:
+      - "8000:80"
