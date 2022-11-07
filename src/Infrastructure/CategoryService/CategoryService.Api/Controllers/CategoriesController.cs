@@ -1,4 +1,5 @@
 ﻿using CategoryService.Application.Features.Categories.Commands.SaveCategory;
+using CategoryService.Application.Features.Categories.Commands.UpdateCategory;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

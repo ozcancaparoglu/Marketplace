@@ -32,9 +32,11 @@ namespace CategoryService.Domain.Persistence
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.Now;
                         entry.Entity.State = (int)State.Active;
+                        entry.Entity.CreatedBy = "ozcan"; //TODO: Auth
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastModifiedDate = DateTime.Now;
+                        entry.Entity.LastModifiedBy = "ozcan"; //TODO: Auth
                         break;
                 }
             }

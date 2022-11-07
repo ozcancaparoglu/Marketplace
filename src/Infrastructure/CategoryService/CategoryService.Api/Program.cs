@@ -1,7 +1,11 @@
 using CategoryService.Application;
+using CategoryService.Application.Features.Categories.Commands.SaveCategory;
 using CategoryService.Application.Mappings;
 using CategoryService.Domain;
+using MediatR;
+using Ocdata.Operations.Behaviours;
 using Ocdata.Operations.Ioc;
+using Ocdata.Operations.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -27,6 +31,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthorization();
 

@@ -10,7 +10,6 @@ WORKDIR /src
 COPY ["src/Infrastructure/CategoryService/CategoryService.Api/CategoryService.Api.csproj", "src/Infrastructure/CategoryService/CategoryService.Api/"]
 COPY ["src/Infrastructure/CategoryService/CategoryService.Application/CategoryService.Application.csproj", "src/Infrastructure/CategoryService/CategoryService.Application/"]
 COPY ["src/Infrastructure/CategoryService/CategoryService.Domain/CategoryService.Domain.csproj", "src/Infrastructure/CategoryService/CategoryService.Domain/"]
-COPY ["src/Infrastructure/CommonOperations/CommonOperations.csproj", "src/Infrastructure/CommonOperations/"]
 RUN dotnet restore "src/Infrastructure/CategoryService/CategoryService.Api/CategoryService.Api.csproj"
 COPY . .
 WORKDIR "/src/src/Infrastructure/CategoryService/CategoryService.Api"
