@@ -23,9 +23,17 @@ namespace CategoryService.Application.Features.Categories.Commands.UpdateCategor
 
         public async Task<Result<string>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
+
             var entity = await _unitOfWork.Repository<Category>().GetById(request.Id);
 
-            throw new NotImplementedException();
+            entity.SetCategory(request.ParentId, request.Name, request.DisplayName, request.Description);
+
+            _unitOfWork.Repository<Category>().Update(entity);
+
+            await _unitOfWork.CommitAsync();
+
+            return await Result<string>.SuccessAsync($"{entity.Name} updated successfully.");
+
         }
     }
 }

@@ -12,6 +12,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+
+  redisdb:
+    container_name: redisdb
+    restart: always
+    ports:
+      - "6379:6379"
   
   pgadmin:
     container_name: pgadmin
@@ -31,5 +37,6 @@ services:
       - "ConnectionStrings:CategoryConnectionString=Server=categorydb;Port=5432;Database=CategoryDb;User Id=admin;Password=6wuvirmipwpdd4qnu"
     depends_on:
       - categorydb
+      - redisdb
     ports:
       - "8000:80"

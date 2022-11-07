@@ -4,6 +4,9 @@ services:
   categorydb:
     image: postgres
 
+  redisdb:
+    image: redis:alpine
+
   pgadmin:
     image: dpage/pgadmin4
 

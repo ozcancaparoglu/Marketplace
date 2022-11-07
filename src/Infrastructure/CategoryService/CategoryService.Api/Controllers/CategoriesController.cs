@@ -1,7 +1,10 @@
-﻿using CategoryService.Application.Features.Categories.Commands.SaveCategory;
+﻿using CategoryService.Application.ApiContracts.Queries;
+using CategoryService.Application.Features.Categories.Commands.SaveCategory;
 using CategoryService.Application.Features.Categories.Commands.UpdateCategory;
+using CategoryService.Application.Features.Categories.Queries.ListCategories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Ocdata.Operations.Helpers.ResponseHelper;
 using System.Net;
 
 namespace CategoryService.Api.Controllers
@@ -16,6 +19,15 @@ namespace CategoryService.Api.Controllers
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
+
+        [HttpGet("list")]
+        [ProducesResponseType(typeof(Result<List<CategoryResponse>>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> ListUsers([FromQuery] ListCategoriesQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
 
         [HttpPost("save")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
