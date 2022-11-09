@@ -13,37 +13,35 @@ namespace CategoryService.Application.Features.Categories.Queries.ListCategories
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        //private readonly ICacheService _cacheService;
+        private readonly ICacheService _cacheService;
 
-        //private List<Category> _allCategories;
-        //public List<Category> AllCategories
-        //{
-        //    get { return _allCategories; }
-        //    set { _allCategories = value; }
-        //}
+        private List<Category> _allCategories;
+        public List<Category> AllCategories
+        {
+            get { return _allCategories; }
+            set { _allCategories = value; }
+        }
 
-        public ListCategoriesHandler(IUnitOfWork unitOfWork, IMapper mapper/*, ICacheService cacheService*/)
+        public ListCategoriesHandler(IUnitOfWork unitOfWork, IMapper mapper, ICacheService cacheService)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            //_cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
-            //_allCategories = new List<Category>();
+            _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
+            _allCategories = new List<Category>();
         }
 
         public async Task<Result<List<CategoryResponse>>> Handle(ListCategoriesQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                //if (!_cacheService.TryGetValue(CacheConstants.CategoryCacheKey, out _allCategories))
-                //{
-                //    AllCategories = (List<Category>)await _unitOfWork.Repository<Category>().GetAll();
-                //    _cacheService.Add(CacheConstants.CategoryCacheKey, AllCategories, CacheConstants.CategoryCacheTime);
-                //}
 
-                //return await Result<List<CategoryResponse>>.SuccessAsync(_mapper.Map<List<CategoryResponse>>(AllCategories));
+                if (!_cacheService.TryGetValue(CacheConstants.CategoryCacheKey, out _allCategories))
+                {
+                    AllCategories = (List<Category>)await _unitOfWork.Repository<Category>().GetAll();
+                    _cacheService.Add(CacheConstants.CategoryCacheKey, AllCategories, CacheConstants.CategoryCacheTime);
+                }
 
-                var data = await _unitOfWork.Repository<Category>().GetAll();
-                return await Result<List<CategoryResponse>>.SuccessAsync(_mapper.Map<List<CategoryResponse>>(data));
+                return await Result<List<CategoryResponse>>.SuccessAsync(_mapper.Map<List<CategoryResponse>>(AllCategories));
             }
             catch (Exception ex)
             {

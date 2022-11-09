@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ocdata.Operations.Cache.Redis;
 
 namespace CategoryService.Domain
 {
@@ -10,6 +11,9 @@ namespace CategoryService.Domain
         public static IServiceCollection AddDomainServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("CategoryConnectionString")));
+
+            services.Configure<RedisConfigurationOptions>(configuration.GetSection("RedisDatabase"));
+
             services.AddScoped<DbContext, AppDbContext>();
 
             return services;
