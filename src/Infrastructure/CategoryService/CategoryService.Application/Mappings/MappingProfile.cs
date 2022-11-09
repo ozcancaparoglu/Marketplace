@@ -18,6 +18,7 @@ namespace CategoryService.Application.Mappings
 
             #region ApiContracts
             CreateMap<Category, CategoryResponse>().ReverseMap();
+            CreateMap<Category, CategoryTreeResponse>().MaxDepth(5).ReverseMap();
             #endregion
 
             #region Entity<>Dto

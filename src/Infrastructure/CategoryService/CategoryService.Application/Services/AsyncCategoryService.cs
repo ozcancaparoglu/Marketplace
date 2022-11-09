@@ -75,5 +75,18 @@ namespace CategoryService.Application.Services
 
             return entity;
         }
+
+        public async Task<IEnumerable<Category>> ChildCategories(int parentId)
+        {
+            var subCategories = AllCategories.Where(x => x.ParentId == parentId);
+
+            foreach (var subCategory in subCategories)
+            {
+                subCategory.SubCategories.AddRange(await ChildCategories(subCategory.Id));
+            }
+
+            return subCategories;
+        }
+
     }
 }

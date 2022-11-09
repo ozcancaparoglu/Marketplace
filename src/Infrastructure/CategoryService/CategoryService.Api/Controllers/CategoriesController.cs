@@ -1,6 +1,7 @@
 ﻿using CategoryService.Application.ApiContracts.Queries;
 using CategoryService.Application.Features.Categories.Commands.SaveCategory;
 using CategoryService.Application.Features.Categories.Commands.UpdateCategory;
+using CategoryService.Application.Features.Categories.Queries.CategoryTree;
 using CategoryService.Application.Features.Categories.Queries.ListCategories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,14 +21,21 @@ namespace CategoryService.Api.Controllers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet("list")]
-        [ProducesResponseType(typeof(Result<List<CategoryResponse>>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> ListUsers([FromQuery] ListCategoriesQuery query)
+        [HttpGet("categoryTree")]
+        [ProducesResponseType(typeof(Result<List<CategoryTreeResponse>>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> CategoryTree([FromQuery] CategoryTreeQuery query) 
         {
             var result = await _mediator.Send(query);
             return Ok(result);
         }
 
+        [HttpGet("list")]
+        [ProducesResponseType(typeof(Result<List<CategoryResponse>>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> List([FromQuery] ListCategoriesQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
 
         [HttpPost("save")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
