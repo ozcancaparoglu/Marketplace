@@ -3,6 +3,7 @@ using CategoryService.Application.ApiContracts.Queries;
 using CategoryService.Application.Dtos;
 using CategoryService.Application.Features.Categories.Commands.SaveCategory;
 using CategoryService.Application.Features.Categories.Commands.UpdateCategory;
+using CategoryService.Application.Features.CategoryAttributes.Commands.SaveCategoryAttribute;
 using CategoryService.Domain.CategoryAggregate;
 
 namespace CategoryService.Application.Mappings
@@ -14,6 +15,7 @@ namespace CategoryService.Application.Mappings
             #region Features
             CreateMap<CategoryDto, SaveCategoryCommand>().ReverseMap();
             CreateMap<CategoryDto, UpdateCategoryCommand>().ReverseMap();
+            CreateMap<CategoryAttributeDto, SaveCategoryAttributeCommand>().ReverseMap();
             #endregion
 
             #region ApiContracts

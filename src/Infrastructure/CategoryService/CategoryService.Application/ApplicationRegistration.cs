@@ -10,6 +10,7 @@ namespace CategoryService.Application
         {
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IAsyncCategoryService, AsyncCategoryService>();
+            services.AddScoped<IAsyncCategoryAttributeService, AsyncCategoryAttributeService>();
 
             return services;
         }
