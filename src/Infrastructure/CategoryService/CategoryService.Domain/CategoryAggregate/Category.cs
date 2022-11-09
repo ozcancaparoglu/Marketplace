@@ -53,11 +53,18 @@ namespace CategoryService.Domain.CategoryAggregate
 
         public void VerifyOrAddCategoryAttribute(int attributeId, bool isRequired, bool isVariantable)
         {
-            if (!_categoryAttributes.Any(x => x.AttributeId == attributeId))
+            if (!_categoryAttributes.Any(x => x.CategoryId == Id && x.AttributeId == attributeId))
             {
                 var newEntry = new CategoryAttribute(Id, attributeId, isRequired, isVariantable);
 
                 _categoryAttributes.Add(newEntry);
+            }
+            else
+            {
+                var existing = _categoryAttributes.FirstOrDefault(x => x.CategoryId == Id && x.AttributeId == attributeId);
+                
+                if(existing != null)
+                    existing.SetCategoryAttribute(Id, attributeId, isRequired, isVariantable);
             }
 
         }

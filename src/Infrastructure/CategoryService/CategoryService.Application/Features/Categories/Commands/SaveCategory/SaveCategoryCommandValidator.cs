@@ -9,12 +9,12 @@ namespace CategoryService.Application.Features.Categories.Commands.SaveCategory
             RuleFor(p => p.Name)
                 .NotEmpty().WithMessage("{Name} is required.")
                 .NotNull()
-                .MaximumLength(100).WithMessage("{Name} must not be over 250 characters.");
+                .MaximumLength(250).WithMessage("{Name} must not be over 250 characters.");
 
             RuleFor(p => p.DisplayName)
                 .NotEmpty().WithMessage("{DisplayName} is required.")
                 .NotNull()
-                .MaximumLength(100).WithMessage("{DisplayName} must not be over 250 characters.");
+                .MaximumLength(250).WithMessage("{DisplayName} must not be over 250 characters.");
 
             RuleFor(p => p.Description)
                 .NotEmpty().WithMessage("{Description} is required.")

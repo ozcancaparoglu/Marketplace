@@ -4,10 +4,10 @@ namespace CategoryService.Domain.CategoryAggregate
 {
     public class CategoryAttribute : EntityBase
     {
-        public int CategoryId { get; protected set; }
-        public int AttributeId { get; protected set; }
-        public bool IsRequired { get; protected set; }
-        public bool IsVariantable { get; protected set; }
+        public int CategoryId { get; private set; }
+        public int AttributeId { get; private set; }
+        public bool IsRequired { get; private set; }
+        public bool IsVariantable { get; private set; }
 
         protected CategoryAttribute()
         {

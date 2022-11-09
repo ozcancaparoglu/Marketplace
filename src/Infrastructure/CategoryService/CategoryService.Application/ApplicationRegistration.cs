@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using CategoryService.Application.Services;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CategoryService.Application
@@ -8,6 +9,7 @@ namespace CategoryService.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IAsyncCategoryService, AsyncCategoryService>();
 
             return services;
         }

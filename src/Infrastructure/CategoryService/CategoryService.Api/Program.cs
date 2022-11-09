@@ -1,9 +1,6 @@
 using CategoryService.Application;
-using CategoryService.Application.Features.Categories.Commands.SaveCategory;
 using CategoryService.Application.Mappings;
 using CategoryService.Domain;
-using MediatR;
-using Ocdata.Operations.Behaviours;
 using Ocdata.Operations.Ioc;
 using Ocdata.Operations.Middlewares;
 
