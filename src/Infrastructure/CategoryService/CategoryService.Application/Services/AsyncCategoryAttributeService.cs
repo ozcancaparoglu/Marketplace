@@ -36,5 +36,23 @@ namespace CategoryService.Application.Services
 
             return entity;
         }
+
+        public async Task<CategoryAttribute?> Update(CategoryAttributeDto dto)
+        {
+            var entity = await _unitOfWork.Repository<CategoryAttribute>().GetById(dto.Id);
+
+            if (entity == null)
+                return null;
+
+            entity.SetCategoryAttribute(dto.CategoryId, dto.AttributeId, dto.IsRequired, dto.IsVariantable);
+
+            _unitOfWork.Repository<CategoryAttribute>().Update(entity);
+
+            _cacheService.Remove(CacheConstants.CategoryAttributesCacheKey);
+
+            await _unitOfWork.CommitAsync();
+
+            return entity;
+        }
     }
 }

@@ -66,7 +66,6 @@ namespace CategoryService.Domain.CategoryAggregate
                 if(existing != null)
                     existing.SetCategoryAttribute(Id, attributeId, isRequired, isVariantable);
             }
-
         }
     }
 }

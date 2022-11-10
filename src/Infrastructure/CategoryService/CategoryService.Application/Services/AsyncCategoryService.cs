@@ -2,6 +2,7 @@
 using CategoryService.Application.Cache;
 using CategoryService.Application.Dtos;
 using CategoryService.Domain.CategoryAggregate;
+using Microsoft.EntityFrameworkCore;
 using Ocdata.Operations.Cache;
 using Ocdata.Operations.Repositories.Contracts;
 
@@ -42,7 +43,8 @@ namespace CategoryService.Application.Services
 
         public async Task<Category?> Save(CategoryDto dto)
         {
-            var existing = await _unitOfWork.Repository<Category>().Find(x => x.Name == dto.Name && x.DisplayName == dto.DisplayName);
+            var existing = await _unitOfWork.Repository<Category>().Find(x => x.Name.ToUpperInvariant() == dto.Name.ToUpperInvariant() 
+            && x.DisplayName.ToUpperInvariant() == dto.DisplayName.ToUpperInvariant());
 
             if (existing != null)
                 return null;
@@ -86,6 +88,26 @@ namespace CategoryService.Application.Services
             }
 
             return subCategories;
+        }
+
+        public async Task GetCategory()
+        {
+            var data = await _unitOfWork.Repository<Category>().Table()
+                .Include(x => x.CategoryAttributes)
+                .Where(x => x.Id == 1).ToListAsync();
+
+
+
+            //var result = (from campaing in _unitOfWork.Repository<Category>().Table()
+            //              join userCluster in _unitOfWork.Repository<CategoryAttribute>().Table() on campaing.Id equals userCluster.CategoryId into gj
+            //              from p in gj.DefaultIfEmpty()
+            //              where (campaing.IsCouponCampaign == true && campaing.StartDate <= DateTime.Now && campaing.EndDate >= DateTime.Now)
+            //              && ((campaing.Code == coupon)
+            //              || (campaing.CampaignType == CampaignTypeEnum.UserExclusive && campaing.Code == coupon && p.ParentId == campaing.Id && p.UserList.Any(x => x.UserId == userId))
+            //              || (campaing.CampaignType == CampaignTypeEnum.CodeExclusivePerUser && p.ParentId == campaing.Id && p.UserList.Any(x => x.UserCode == coupon && x.UserId == userId)))
+            //              select campaing).FirstOrDefault();
+            //return result;
+
         }
 
     }

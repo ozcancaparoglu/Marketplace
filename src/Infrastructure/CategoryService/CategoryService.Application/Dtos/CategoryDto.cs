@@ -8,5 +8,6 @@ namespace CategoryService.Application.Dtos
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string Description { get; set; }
+        public ICollection<CategoryAttributeDto> CategoryAttributes { get; set; }
     }
 }

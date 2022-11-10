@@ -29,9 +29,9 @@ namespace CategoryService.Application.Features.CategoryAttributes.Commands.SaveC
             if (entity == null)
                 return await Result<string>.FailureAsync("CategoryAttribute already exists.");
 
-            _logger.LogInformation(message: $"CategoryAttribute {entity.CategoryId}, {entity.AttributeId} is successfully created.");
+            _logger.LogInformation(message: $"CategoryAttribute CategoryId:{entity.CategoryId}, AttributeId:{entity.AttributeId} is successfully created.");
 
-            return await Result<string>.SuccessAsync($"CategoryAttribute {entity.CategoryId}, {entity.AttributeId} is successfully created.");
+            return await Result<string>.SuccessAsync($"CategoryAttribute CategoryId:{entity.CategoryId}, AttributeId:{entity.AttributeId} is successfully created.");
         }
     }
 }
