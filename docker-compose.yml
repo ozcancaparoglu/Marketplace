@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  categorydb:
+  appdb:
     image: postgres
 
   redisdb:
@@ -15,6 +15,12 @@ services:
     build:
       context: .
       dockerfile: src/Infrastructure/CategoryService/CategoryService.Api/Dockerfile
+
+  attributeservice.api:
+    image: ${DOCKER_REGISTRY-}attributeserviceapi
+    build:
+      context: .
+      dockerfile: src/Infrastructure/AttributeService/AttributeService.Api/Dockerfile
 
 volumes:
   postgres_data:

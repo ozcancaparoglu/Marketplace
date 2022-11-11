@@ -30,6 +30,8 @@ namespace CategoryService.Application.Services
             _allCategories = new List<Category>();
         }
 
+        #region Entity Crud
+
         public async Task<IEnumerable<Category>> List()
         {
             if (!_cacheService.TryGetValue(CacheConstants.CategoryCacheKey, out _allCategories))
@@ -78,6 +80,8 @@ namespace CategoryService.Application.Services
             return entity;
         }
 
+        #endregion
+
         public async Task<IEnumerable<Category>> ChildCategories(int parentId)
         {
             var subCategories = AllCategories.Where(x => x.ParentId == parentId);
@@ -88,26 +92,6 @@ namespace CategoryService.Application.Services
             }
 
             return subCategories;
-        }
-
-        public async Task GetCategory()
-        {
-            var data = await _unitOfWork.Repository<Category>().Table()
-                .Include(x => x.CategoryAttributes)
-                .Where(x => x.Id == 1).ToListAsync();
-
-
-
-            //var result = (from campaing in _unitOfWork.Repository<Category>().Table()
-            //              join userCluster in _unitOfWork.Repository<CategoryAttribute>().Table() on campaing.Id equals userCluster.CategoryId into gj
-            //              from p in gj.DefaultIfEmpty()
-            //              where (campaing.IsCouponCampaign == true && campaing.StartDate <= DateTime.Now && campaing.EndDate >= DateTime.Now)
-            //              && ((campaing.Code == coupon)
-            //              || (campaing.CampaignType == CampaignTypeEnum.UserExclusive && campaing.Code == coupon && p.ParentId == campaing.Id && p.UserList.Any(x => x.UserId == userId))
-            //              || (campaing.CampaignType == CampaignTypeEnum.CodeExclusivePerUser && p.ParentId == campaing.Id && p.UserList.Any(x => x.UserCode == coupon && x.UserId == userId)))
-            //              select campaing).FirstOrDefault();
-            //return result;
-
         }
 
     }

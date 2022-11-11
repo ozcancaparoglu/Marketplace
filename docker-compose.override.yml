@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   categorydb:
-    container_name: categorydb
+    container_name: appdb
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=6wuvirmipwpdd4qnu
@@ -12,6 +12,18 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+  
+  attributedb:
+    container_name: appdb
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=3fndqf4awm
+      - POSTGRES_DB=AttributeDb
+    restart: always
+    ports: 
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgreslq/data/
 
   redisdb:
     container_name: redisdb
@@ -40,3 +52,12 @@ services:
       - redisdb
     ports:
       - "8000:80"
+
+  attributeservice.api:
+    container_name: attributeservice.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:AttributeConnectionString=Server=attributedb;Port=5432;Database=AttributeDb;User Id=admin;Password=3fndqf4awm"
+    ports:
+      - "8001:80"
+

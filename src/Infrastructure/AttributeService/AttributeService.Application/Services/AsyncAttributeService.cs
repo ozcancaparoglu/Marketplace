@@ -1,6 +1,7 @@
 ﻿using AttributeService.Application.Cache;
 using AttributeService.Application.Dtos;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Ocdata.Operations.Cache;
 using Ocdata.Operations.Repositories.Contracts;
 
@@ -26,6 +27,8 @@ namespace AttributeService.Application.Services
             _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
             _allAttributes = new List<Domain.AttributeAggregate.Attribute>();
         }
+
+        #region Entity Crud
 
         public async Task<IEnumerable<Domain.AttributeAggregate.Attribute>> List()
         {
@@ -70,6 +73,21 @@ namespace AttributeService.Application.Services
             _cacheService.Remove(CacheConstants.AttributeCacheKey);
 
             await _unitOfWork.CommitAsync();
+
+            return entity;
+        }
+
+        #endregion
+
+        public Domain.AttributeAggregate.Attribute? GetAttributeWithValues(int id)
+        {
+            var entity = _unitOfWork.Repository<Domain.AttributeAggregate.Attribute>().Table()
+                .Include(x => x.AttributesValues)
+                .ThenInclude(x => x.Unit)
+                .FirstOrDefault(x => x.Id == id);
+
+            if (entity == null)
+                return null;
 
             return entity;
         }

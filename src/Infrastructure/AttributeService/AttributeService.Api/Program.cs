@@ -1,6 +1,18 @@
+using AttributeService.Application;
+using AttributeService.Application.Mappings;
+using AttributeService.Domain;
+using Ocdata.Operations.Ioc;
+
 var builder = WebApplication.CreateBuilder(args);
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 
 // Add services to the container.
+builder.Services.OcdataServices();
+builder.Services.AddApplicationServices();
+builder.Services.AddDomainServices(builder.Configuration);
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
