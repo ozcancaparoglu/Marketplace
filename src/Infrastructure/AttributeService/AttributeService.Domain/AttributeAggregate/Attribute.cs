@@ -9,8 +9,6 @@ namespace AttributeService.Domain.AttributeAggregate
         [Required]
         [StringLength(250)]
         public string Name { get; private set; }
-        public bool IsRequired { get; private set; }
-        public bool IsVariantable { get; private set; }
 
         private readonly List<AttributeValue> _attributesValues;
         public IReadOnlyCollection<AttributeValue> AttributesValues => _attributesValues;
@@ -20,18 +18,14 @@ namespace AttributeService.Domain.AttributeAggregate
             _attributesValues = new List<AttributeValue>();
         }
 
-        public Attribute(string name, bool ısRequired, bool ısVariantable) : this()
+        public Attribute(string name) : this()
         {
             Name = name;
-            IsRequired = ısRequired;
-            IsVariantable = ısVariantable;
         }
 
-        public void SetAttribute(string name, bool ısRequired, bool ısVariantable)
+        public void SetAttribute(string name)
         {
             Name = name;
-            IsRequired = ısRequired;
-            IsVariantable = ısVariantable;
         }
 
         public void VerifyOrAddAttributesValues(string value, int unitId)

@@ -43,7 +43,7 @@ namespace AttributeService.Application.Services
 
         public async Task<Domain.AttributeAggregate.Attribute?> Save(AttributeDto dto)
         {
-            var existing = await _unitOfWork.Repository<Domain.AttributeAggregate.Attribute>().Find(x => x.Name.ToUpperInvariant() == dto.Name.ToUpperInvariant());
+            var existing = await _unitOfWork.Repository<Domain.AttributeAggregate.Attribute>().Find(x => x.Name == dto.Name);
 
             if (existing != null)
                 return null;

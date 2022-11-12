@@ -6,7 +6,5 @@ namespace AttributeService.Application.Features.Attributes.Commands.SaveAttribut
     public class SaveAttributeCommand : IRequest<Result<string>>
     {
         public string Name { get; set; }
-        public bool IsRequired { get; set; }
-        public bool IsVariantable { get; set; }
     }
 }

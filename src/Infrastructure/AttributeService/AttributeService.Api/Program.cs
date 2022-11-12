@@ -2,10 +2,10 @@ using AttributeService.Application;
 using AttributeService.Application.Mappings;
 using AttributeService.Domain;
 using Ocdata.Operations.Ioc;
+using Ocdata.Operations.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
 
 // Add services to the container.
 builder.Services.OcdataServices();
@@ -29,6 +29,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 

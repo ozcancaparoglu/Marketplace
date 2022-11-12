@@ -1,4 +1,5 @@
 ﻿using AttributeService.Application.Dtos;
+using AttributeService.Application.Features.Attributes.Commands.SaveAttribute;
 using AttributeService.Domain.AttributeAggregate;
 using AutoMapper;
 
@@ -8,7 +9,8 @@ namespace AttributeService.Application.Mappings
     {
         public MappingProfile()
         {
-            #region Features  
+            #region Features
+            CreateMap<SaveAttributeCommand, AttributeDto>().ReverseMap();
             #endregion
 
             #region ApiContracts
