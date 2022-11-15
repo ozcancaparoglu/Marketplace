@@ -8,8 +8,11 @@
 
   <ItemGroup>
     <Compile Remove="Communicators\**" />
+    <Compile Remove="Communicator\**" />
     <EmbeddedResource Remove="Communicators\**" />
+    <EmbeddedResource Remove="Communicator\**" />
     <None Remove="Communicators\**" />
+    <None Remove="Communicator\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,7 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Communicator\AttributeService\" />
     <Folder Include="Features\CategoryAttributes\Queries\" />
     <Folder Include="Mappings\" />
   </ItemGroup>

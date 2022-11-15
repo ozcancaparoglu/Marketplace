@@ -23,22 +23,22 @@ namespace CategoryService.Api.Controllers
 
         [HttpGet("categoryTree")]
         [ProducesResponseType(typeof(Result<List<CategoryTreeResponse>>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> CategoryTree([FromQuery] CategoryTreeQuery query) 
+        public async Task<IActionResult> CategoryTree() 
         {
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(new CategoryTreeQuery());
             return Ok(result);
         }
 
         [HttpGet("list")]
         [ProducesResponseType(typeof(Result<List<CategoryResponse>>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> List([FromQuery] ListCategoriesQuery query)
+        public async Task<IActionResult> List()
         {
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(new ListCategoriesQuery());
             return Ok(result);
         }
 
         [HttpPost("save")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Result<string>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<string>> Save([FromBody] SaveCategoryCommand command)
         {
             var result = await _mediator.Send(command);
@@ -46,7 +46,7 @@ namespace CategoryService.Api.Controllers
         }
 
         [HttpPost("update")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Result<string>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<string>> Update([FromBody] UpdateCategoryCommand command)
         {
             var result = await _mediator.Send(command);

@@ -66,7 +66,7 @@ namespace AttributeService.Application.Services
             if (entity == null)
                 return null;
 
-            entity.SetAttribute(dto.Name, dto.IsRequired, dto.IsVariantable);
+            entity.SetAttribute(dto.Name);
 
             _unitOfWork.Repository<Domain.AttributeAggregate.Attribute>().Update(entity);
 

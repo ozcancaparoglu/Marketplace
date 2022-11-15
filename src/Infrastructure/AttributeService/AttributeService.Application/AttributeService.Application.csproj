@@ -7,9 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ApiContracts\" />
-    <Folder Include="Features\Attributes\Commands\UpdateAttribute\" />
-    <Folder Include="Features\Attributes\Queries\" />
     <Folder Include="Features\AttributeValues\" />
     <Folder Include="Features\Units\" />
   </ItemGroup>

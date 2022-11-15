@@ -6,12 +6,12 @@ using Ocdata.Operations.Helpers.ResponseHelper;
 
 namespace CategoryService.Application.Features.Categories.Queries.ListCategories
 {
-    public class ListCategoriesHandler : IRequestHandler<ListCategoriesQuery, Result<List<CategoryResponse>>>
+    public class ListCategoriesQueryHandler : IRequestHandler<ListCategoriesQuery, Result<List<CategoryResponse>>>
     {
         private readonly IMapper _mapper;
         private readonly IAsyncCategoryService _categoryService;
 
-        public ListCategoriesHandler(IMapper mapper, IAsyncCategoryService categoryService)
+        public ListCategoriesQueryHandler(IMapper mapper, IAsyncCategoryService categoryService)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));

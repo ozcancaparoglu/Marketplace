@@ -34,21 +34,21 @@ services:
     container_name: categoryservice.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:CategoryConnectionString=Server=servicesdb;Port=5432;Database=ServicesDb;User Id=admin;Password=6wuvirmipwpdd4qnu"
+      - "ConnectionStrings:CategoryConnectionString=Server=servicesdb;Port=5432;Database=CategoryDb;User Id=admin;Password=6wuvirmipwpdd4qnu"
     depends_on:
       - appdbs
       - redisdb
     ports:
-      - "8000:80"
+      - "8000:3000"
 
   attributeservice.api:
     container_name: attributeservice.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:AttributeConnectionString=Server=servicesdb;Port=5432;Database=ServicesDb;User Id=admin;Password=6wuvirmipwpdd4qnu"
+      - "ConnectionStrings:AttributeConnectionString=Server=servicesdb;Port=5432;Database=AttributeDb;User Id=admin;Password=6wuvirmipwpdd4qnu"
     depends_on:
       - appdbs
       - redisdb
     ports:
-      - "8001:80"
+      - "8001:3000"
 
