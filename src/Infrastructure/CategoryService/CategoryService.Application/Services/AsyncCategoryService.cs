@@ -45,8 +45,8 @@ namespace CategoryService.Application.Services
 
         public async Task<Category?> Save(CategoryDto dto)
         {
-            var existing = await _unitOfWork.Repository<Category>().Find(x => x.Name.ToUpperInvariant() == dto.Name.ToUpperInvariant() 
-            && x.DisplayName.ToUpperInvariant() == dto.DisplayName.ToUpperInvariant());
+            var existing = await _unitOfWork.Repository<Category>().Find(x => x.Name == dto.Name 
+            && x.DisplayName == dto.DisplayName);
 
             if (existing != null)
                 return null;
