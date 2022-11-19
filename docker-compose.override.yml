@@ -39,7 +39,7 @@ services:
       - appdbs
       - redisdb
     ports:
-      - "8000:3000"
+      - "8000:80"
 
   attributeservice.api:
     container_name: attributeservice.api
@@ -50,5 +50,5 @@ services:
       - appdbs
       - redisdb
     ports:
-      - "8001:3000"
+      - "8001:80"
 

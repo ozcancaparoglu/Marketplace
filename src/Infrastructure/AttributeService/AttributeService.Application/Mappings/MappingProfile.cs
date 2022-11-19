@@ -1,8 +1,10 @@
-﻿using AttributeService.Application.Dtos;
+﻿using AttributeService.Application.ApiContracts.Queries;
+using AttributeService.Application.Dtos;
 using AttributeService.Application.Features.Attributes.Commands.SaveAttribute;
 using AttributeService.Application.Features.Attributes.Commands.UpdateAttribute;
 using AttributeService.Domain.AttributeAggregate;
 using AutoMapper;
+using Attribute = AttributeService.Domain.AttributeAggregate.Attribute;
 
 namespace AttributeService.Application.Mappings
 {
@@ -16,10 +18,11 @@ namespace AttributeService.Application.Mappings
             #endregion
 
             #region ApiContracts
+            CreateMap<Attribute, AttributeResponse>().ReverseMap();
             #endregion
 
             #region Entity<>Dto
-            CreateMap<Domain.AttributeAggregate.Attribute, AttributeDto>().ReverseMap();
+            CreateMap<Attribute, AttributeDto>().ReverseMap();
             CreateMap<AttributeValue, AttributeValueDto>().ReverseMap();
             CreateMap<Unit, UnitDto>().ReverseMap();
             #endregion

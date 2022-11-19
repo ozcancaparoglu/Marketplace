@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Ocdata.Operations.Cache;
 using Ocdata.Operations.Repositories.Contracts;
+using Attribute = AttributeService.Domain.AttributeAggregate.Attribute;
 
 namespace AttributeService.Application.Services
 {
@@ -13,8 +14,8 @@ namespace AttributeService.Application.Services
         private readonly IMapper _mapper;
         private readonly ICacheService _cacheService;
 
-        private List<Domain.AttributeAggregate.Attribute> _allAttributes;
-        public List<Domain.AttributeAggregate.Attribute> AllAttributes
+        private List<Attribute> _allAttributes;
+        public List<Attribute> AllAttributes
         {
             get { return _allAttributes; }
             set { _allAttributes = value; }
@@ -30,27 +31,27 @@ namespace AttributeService.Application.Services
 
         #region Entity Crud
 
-        public async Task<IEnumerable<Domain.AttributeAggregate.Attribute>> List()
+        public async Task<IEnumerable<Attribute>> List()
         {
             if (!_cacheService.TryGetValue(CacheConstants.AttributeCacheKey, out _allAttributes))
             {
-                AllAttributes = (List<Domain.AttributeAggregate.Attribute>)await _unitOfWork.Repository<Domain.AttributeAggregate.Attribute>().GetAll();
+                AllAttributes = (List<Attribute>)await _unitOfWork.Repository<Attribute>().GetAll();
                 _cacheService.Add(CacheConstants.AttributeCacheKey, AllAttributes, CacheConstants.AttributeCacheTime);
             }
 
             return AllAttributes;
         }
 
-        public async Task<Domain.AttributeAggregate.Attribute?> Save(AttributeDto dto)
+        public async Task<Attribute?> Save(AttributeDto dto)
         {
-            var existing = await _unitOfWork.Repository<Domain.AttributeAggregate.Attribute>().Find(x => x.Name == dto.Name);
+            var existing = await _unitOfWork.Repository<Attribute>().Find(x => x.Name == dto.Name);
 
             if (existing != null)
                 return null;
 
-            var entity = _mapper.Map<Domain.AttributeAggregate.Attribute>(dto);
+            var entity = _mapper.Map<Attribute>(dto);
 
-            await _unitOfWork.Repository<Domain.AttributeAggregate.Attribute>().Add(entity);
+            await _unitOfWork.Repository<Attribute>().Add(entity);
 
             _cacheService.Remove(CacheConstants.AttributeCacheKey);
 
@@ -59,16 +60,16 @@ namespace AttributeService.Application.Services
             return entity;
         }
 
-        public async Task<Domain.AttributeAggregate.Attribute?> Update(AttributeDto dto)
+        public async Task<Attribute?> Update(AttributeDto dto)
         {
-            var entity = await _unitOfWork.Repository<Domain.AttributeAggregate.Attribute>().GetById(dto.Id);
+            var entity = await _unitOfWork.Repository<Attribute>().GetById(dto.Id);
 
             if (entity == null)
                 return null;
 
             entity.SetAttribute(dto.Name);
 
-            _unitOfWork.Repository<Domain.AttributeAggregate.Attribute>().Update(entity);
+            _unitOfWork.Repository<Attribute>().Update(entity);
 
             _cacheService.Remove(CacheConstants.AttributeCacheKey);
 
@@ -79,9 +80,9 @@ namespace AttributeService.Application.Services
 
         #endregion
 
-        public Domain.AttributeAggregate.Attribute? GetAttributeWithValues(int id)
+        public Attribute? GetAttributeWithValues(int id)
         {
-            var entity = _unitOfWork.Repository<Domain.AttributeAggregate.Attribute>().Table()
+            var entity = _unitOfWork.Repository<Attribute>().Table()
                 .Include(x => x.AttributesValues)
                 .ThenInclude(x => x.Unit)
                 .FirstOrDefault(x => x.Id == id);

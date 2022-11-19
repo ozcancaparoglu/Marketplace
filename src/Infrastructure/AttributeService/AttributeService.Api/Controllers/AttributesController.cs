@@ -1,5 +1,7 @@
-﻿using AttributeService.Application.Features.Attributes.Commands.SaveAttribute;
+﻿using AttributeService.Application.ApiContracts.Queries;
+using AttributeService.Application.Features.Attributes.Commands.SaveAttribute;
 using AttributeService.Application.Features.Attributes.Commands.UpdateAttribute;
+using AttributeService.Application.Features.Attributes.Queries.ListAttributes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Ocdata.Operations.Helpers.ResponseHelper;
@@ -16,6 +18,14 @@ namespace AttributeService.Api.Controllers
         public AttributesController(IMediator mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        }
+
+        [HttpGet("list")]
+        [ProducesResponseType(typeof(Result<List<AttributeResponse>>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> List()
+        {
+            var result = await _mediator.Send(new ListAttributesQuery());
+            return Ok(result);
         }
 
         [HttpPost("save")]
