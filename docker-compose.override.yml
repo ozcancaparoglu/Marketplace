@@ -6,7 +6,7 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=6wuvirmipwpdd4qnu
-      - POSTGRES_DB=CategoryDb
+      - POSTGRES_DB=ServicesDb
     restart: always
     ports:
       - "5432:5432"
